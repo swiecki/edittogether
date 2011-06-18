@@ -301,3 +301,4 @@
  *
  */
 	Cache::config('default', array('engine' => 'File'));
+include_once(ROOT.'/edittogether/plugins/spark_plug/config/config.php');
