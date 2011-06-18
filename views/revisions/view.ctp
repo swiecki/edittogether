@@ -1,0 +1,43 @@
+<div class="revisions view">
+<h2><?php  __('Revision');?></h2>
+	<dl><?php $i = 0; $class = ' class="altrow"';?>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $revision['Revision']['id']; ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('User'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $this->Html->link($revision['User']['id'], array('controller' => 'users', 'action' => 'view', $revision['User']['id'])); ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Essay'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $this->Html->link($revision['Essay']['name'], array('controller' => 'essays', 'action' => 'view', $revision['Essay']['id'])); ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Title'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $revision['Revision']['title']; ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Content'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $revision['Revision']['content']; ?>
+			&nbsp;
+		</dd>
+	</dl>
+</div>
+<div class="actions">
+	<h3><?php __('Actions'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('Edit Revision', true), array('action' => 'edit', $revision['Revision']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Delete Revision', true), array('action' => 'delete', $revision['Revision']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $revision['Revision']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('List Revisions', true), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Revision', true), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Essays', true), array('controller' => 'essays', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Essay', true), array('controller' => 'essays', 'action' => 'add')); ?> </li>
+	</ul>
+</div>
