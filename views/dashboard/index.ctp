@@ -28,9 +28,23 @@ debug($userInfo);
 <div class="clear"></div>
 <section id="upperpanels">
 <div id="youressays" class="grid_9">
-	<h2><?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?>_Your Essays</h2>
+	<h2><?php echo $this->Html->link(__('_Your Essays', true), array('controller' => 'essays', 'action' => 'index')); ?></h2>
 	<div class="panelcontent">
 	<ul>
+
+	<?php
+	$i = 0;
+	foreach ($recentEssays as $essay):
+		$class = null;
+		if ($i++ % 2 == 0) {
+			$class = ' class="alternate"';
+		}
+	?>
+
+	<li<?php echo $class;?>><p><span class="title"><?php echo $essay['Essay']['name']; ?></span> <span class="wordcount">352 words</span></p>  <div class="button"><?php echo $this->Html->link(__('count', true), array('controller' => 'essays', 'action' => 'index'), array('class' => 'numrevisions')); ?></div></li>
+<?php endforeach; ?>
+
+
 		<li><p><span class="title">Test Essay 1</span> <span class="wordcount">352 words</span></p>  <div class="button"><a href="#" class="numrevisions">0 revisions</a></div></li>
 		<li class="alternate"><p><span class="title">Test Essay 1</span> <span class="wordcount">352 words</span></p>  <div class="button"><a href="#" class="numrevisions">0 revisions</a></div></li>
 		<li><p><span class="title">Test Essay 1</span> <span class="wordcount">352 words</span></p>  <div class="button"><a href="#" class="numrevisions">0 revisions</a></div></li>
@@ -49,7 +63,7 @@ debug($userInfo);
 	</div>
 </div>
 <div id="yourrevisions" class="grid_9">
-	<h2>_Your Revisions</h2>
+	<h2><?php echo $this->Html->link(__('_Your Revisions', true), array('controller' => 'revisions', 'action' => 'index')); ?></h2>
 	<div class="panelcontent">
 	<ul>
 		<li><p><span class="title">Test Essay 1</span> <span class="wordcount">352 words</span></p>  <div class="button"><a href="#" class="viewrevision">view revision</a></div></li>
