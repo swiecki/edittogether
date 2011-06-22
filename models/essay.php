@@ -30,5 +30,8 @@ class Essay extends AppModel {
 		)
 	);
 
+   function getRecent() {
+      return $this->find('all');
+   }
 }
 ?>

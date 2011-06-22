@@ -20,5 +20,9 @@ class Revision extends AppModel {
 			'order' => ''
 		)
 	);
+
+   function getRecent() {
+      return $this->find('all');
+   }
 }
 ?>

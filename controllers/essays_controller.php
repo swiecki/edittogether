@@ -4,7 +4,7 @@ class EssaysController extends AppController {
 	var $name = 'Essays';
 
 	function index() {
-		$this->Essay->recursive = 0;
+		$this->Essay->recursive = 1;
 		$this->set('essays', $this->paginate());
 	}
 
