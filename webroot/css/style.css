@@ -204,6 +204,10 @@ li a.viewrevision {
 #getmorepoints span.pointsgreen {
 	color:#7ad311;	
 }
+h2 a {
+	text-decoration:none;
+	color:#fff;
+}
 p.meterlabel{
 	display:block;
 }

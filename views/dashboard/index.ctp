@@ -1,8 +1,26 @@
-<?php debug($recentEssays); 
+<?/*php debug($recentEssays); 
 debug($recentRevisions);
 debug($userInfo);
+*/?>
+<?php  
+
+// Original PHP code by Chirp Internet: www.chirp.com.au
+// Please acknowledge use of this code by including this header.
+
+function myTruncate2($string, $limit, $break=" ", $pad="...")
+{
+  // return with no change if string is shorter than $limit
+  if(strlen($string) <= $limit) return $string;
+
+  $string = substr($string, 0, $limit);
+  if(false !== ($breakpoint = strrpos($string, $break))) {
+    $string = substr($string, 0, $breakpoint);
+  }
+
+  return $string . $pad;
+}
+
 ?>
-<?php print($userInfo['User']['points']) ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,8 +38,8 @@ debug($userInfo);
 <div id="navigation" class="grid_7 prefix_11">
 	<ul id="mainnav">
 		<li>Welcome, <span class="username"><?php print($userInfo['User']['username']) ?></span>!</li>
-		<li class="current"><a href="#">Your Dashboard</a></li>
-		<li><a href="#">Logout</a></li>
+		<li class="current"><?php echo $this->Html->link(__('Your Dashboard', true), array('controller' => 'dashboard', 'action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout')); ?></li>
 	</ul>
 </div>
 </header>
@@ -32,8 +50,18 @@ debug($userInfo);
 	<div class="panelcontent">
 	<ul>
 
-	<?php
-	$i = 0;
+ <?php
+/*
+	This next sequence is an if statement that checks if the $recentEssays array is empty. 
+	If it is not empty, it does a for loop where it generates list items based on recentEssays.
+	If it is empty, it generates a dummy item that informs the user they have no essays.
+*/
+ ?>
+
+<?php if(!empty($recentEssays)): ?>  
+
+<?php
+	$i = 1; //this is set to 1 so the stripe alternation starts on the second bar.
 	foreach ($recentEssays as $essay):
 		$class = null;
 		if ($i++ % 2 == 0) {
@@ -41,7 +69,7 @@ debug($userInfo);
 		}
 	?>
 
-	<li<?php echo $class;?>><p><span class="title"><?php echo $essay['Essay']['name']; ?></span> <span class="wordcount">352 words</span></p>  <div class="button">
+	<li<?php echo $class;?>><p><span class="title"><?php echo myTruncate2($essay['Essay']['name'], 20, $break=" ", $pad="..."); ?></span> <span class="wordcount">352 words</span></p>  <div class="button">
 <?php 
 /*
 	This writes number of revisions. x revisions or x revision depending on whether its singular or plural.
@@ -59,6 +87,13 @@ debug($userInfo);
 	</div></li>
 <?php endforeach; ?>
 
+<?php else: ?>
+<li><p>You currently have no essays. If you have the points for it, click the button below to post one!</p></li>
+<?php endif; ?>	
+
+	
+
+
 
 		<!--			TO BE REMOVED
 		<li><p><span class="title">Test Essay 1</span> <span class="wordcount">352 words</span></p>  <div class="button"><a href="#" class="numrevisions">0 revisions</a></div></li>
@@ -71,20 +106,64 @@ debug($userInfo);
 	<h2>_Your Points</h2>
 	<div class="panelcontent">
 	<p>You currently have <span class="numpoints"><?php print($userInfo['User']['points']) ?></span> points for use on posting your own essays.</p>
-	<br/><p>This means you can post a total of <span class="numpoints"><?php print(floor ($userInfo['User']['points'] / 5)) ?></span> more essay.</p>
+	<br/><p>This means you can post a total of <span class="numpoints"><?php print(floor ($userInfo['User']['points'] / 5)) ?></span> more essay<?php if(floor ($userInfo['User']['points'] / 5) != 1) echo 's' ?>.</p>
+	<?php 
+	//Meter calculations go here
+	$userpoints = $userInfo['User']['points'];
+	$lowerbound = floor($userpoints/5);
+	$width = (($userpoints % 5) / 5) *100;
+	$upperbound = ceil($userpoints/5);
+	if($upperbound == 0){
+		$upperbound = 1;
+	}
+	?>
 	<div class="meter">
-		<span style="width: 70%"></span>
+		<span style="width: <?php echo $width ?>%"></span>
 	</div>
-	<p class="meterlabel"><span class="lowerbound">0</span><span class="mid">1</span><span class="upperbound">2</span></p>
+	<p class="meterlabel"><span class="lowerbound"><?php echo $lowerbound ?></span><span class="mid">progress to next essay</span><span class="upperbound"><?php echo $upperbound ?></span></p>
 	</div>
 </div>
 <div id="yourrevisions" class="grid_9">
 	<h2><?php echo $this->Html->link(__('_Your Revisions', true), array('controller' => 'revisions', 'action' => 'index')); ?></h2>
 	<div class="panelcontent">
 	<ul>
+
+<?php
+/*
+	This next sequence is an if statement that checks if the $recentEssays array is empty. 
+	If it is not empty, it does a for loop where it generates list items based on recentEssays.
+	If it is empty, it generates a dummy item that informs the user they have no essays.
+*/
+ ?>
+
+<?php if(!empty($recentRevisions)): ?>  
+
+<?php
+	$i = 1; //this is set to 1 so the stripe alternation starts on the second bar.
+	foreach ($recentRevisions as $revision):
+		$class = null;
+		if ($i++ % 2 == 0) {
+			$class = ' class="alternate"';
+		}
+	?>
+
+	<li<?php echo $class;?>><p><span class="title"><?php echo myTruncate2($revision['Revision']['title'], 20, $break=" ", $pad="..."); ?></span> <span class="wordcount">352 words</span></p>  <div class="button">
+	<?php echo $this->Html->link(__('view revision', true), array('controller' => 'revisions', 'action' => 'view', $revision['Revision']['id']), array('class' => 'viewrevision'));?>
+	</div></li>
+<?php endforeach; ?>
+
+<?php else: ?>
+<li><p>You currently have no revisions. Click the button below to find an essay to revise!</p></li>
+<?php endif; ?>	
+
+
+
+<!--	TO BE REMOVED
 		<li><p><span class="title">Test Essay 1</span> <span class="wordcount">352 words</span></p>  <div class="button"><a href="#" class="viewrevision">view revision</a></div></li>
 		<li class="alternate"><p><span class="title">Test Essay 1</span> <span class="wordcount">352 words</span></p>  <div class="button"><a href="#" class="viewrevision">view revision</a></div></li>
 		<li><p><span class="title">Test Essay 1</span> <span class="wordcount">352 words</span></p>  <div class="button"><a href="#" class="viewrevision">view revision</a></div></li>
+-->	
+
 	</ul>
 	</div>
 </div>
@@ -94,7 +173,7 @@ debug($userInfo);
 <div id="postessay" class="grid_9">
 	<h2>_Post Another Essay</h2>
 	<div class="panelcontent">
-	<div class="bigbutton"><a href="#" class="post">Add Essay</a></div>
+	<div class="bigbutton"><?php echo $this->Html->link(__('Add Essay', true), array('controller' => 'essays', 'action' => 'add'), array('class' => 'post'));?></div>
 	<p>Use the button above to go to the essay post screen.</p>
 	</div>
 </div>
@@ -111,7 +190,7 @@ debug($userInfo);
 <div id="postrevisions" class="grid_9">
 	<h2>_Revise More Essays</h2>
 	<div class="panelcontent">
-	<div class="bigbutton"><a href="#" class="revise">Browse Unrevised Essays</a></div>
+	<div class="bigbutton"><?php echo $this->Html->link(__('Browse Unrevised Essays', true), array('controller' => 'revisions', 'action' => 'index'), array('class' => 'revise'));?></div>
 	<p>Use the button above to go to the essay revisions screen.</p>
 	</div>
 </div>
