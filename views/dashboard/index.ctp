@@ -41,13 +41,29 @@ debug($userInfo);
 		}
 	?>
 
-	<li<?php echo $class;?>><p><span class="title"><?php echo $essay['Essay']['name']; ?></span> <span class="wordcount">352 words</span></p>  <div class="button"><?php echo $this->Html->link(__('count', true), array('controller' => 'essays', 'action' => 'index'), array('class' => 'numrevisions')); ?></div></li>
+	<li<?php echo $class;?>><p><span class="title"><?php echo $essay['Essay']['name']; ?></span> <span class="wordcount">352 words</span></p>  <div class="button">
+<?php 
+/*
+	This writes number of revisions. x revisions or x revision depending on whether its singular or plural.
+*/
+?>
+	<?php
+	if ($essay['Essay']['revision_count'] == 1) {
+	  echo $this->Html->link(__($essay['Essay']['revision_count'].' revision', true), array('controller' => 'essays', 'action' => 'index'), array('class' => 'numrevisions'));
+	} else {
+ 	 echo $this->Html->link(__($essay['Essay']['revision_count'].' revisions', true), array('controller' => 'essays', 'action' => 'index'), array('class' => 'numrevisions'));
+	}
+?>
+
+
+	</div></li>
 <?php endforeach; ?>
 
 
+		<!--			TO BE REMOVED
 		<li><p><span class="title">Test Essay 1</span> <span class="wordcount">352 words</span></p>  <div class="button"><a href="#" class="numrevisions">0 revisions</a></div></li>
 		<li class="alternate"><p><span class="title">Test Essay 1</span> <span class="wordcount">352 words</span></p>  <div class="button"><a href="#" class="numrevisions">0 revisions</a></div></li>
-		<li><p><span class="title">Test Essay 1</span> <span class="wordcount">352 words</span></p>  <div class="button"><a href="#" class="numrevisions">0 revisions</a></div></li>
+		<li><p><span class="title">Test Essay 1</span> <span class="wordcount">352 words</span></p>  <div class="button"><a href="#" class="numrevisions">0 revisions</a></div></li>-->
 	</ul>
 	</div>
 </div>                              

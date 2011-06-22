@@ -17,7 +17,8 @@ class Revision extends AppModel {
 			'foreignKey' => 'essay_id',
 			'conditions' => '',
 			'fields' => '',
-			'order' => ''
+			'order' => '',
+			'counterCache' => 'true'
 		)
 	);
 
