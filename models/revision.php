@@ -18,7 +18,7 @@ class Revision extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',
-			'counterCache' => 'true'
+			'counterCache' => true
 		)
 	);
 
