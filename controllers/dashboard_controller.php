@@ -8,13 +8,20 @@
           var $uses = array();
  
           function index () {
-          	   $this->layout = 'blank';
-          	   //$userdata = $this->Authsome->get();
-          	   //$userdata = $this -> Session -> read();
-               $this->set('recentEssays', ClassRegistry::init('Essay')->getRecent());
-               $this->set('recentRevisions', ClassRegistry::init('Revision')->getRecent());
-               $this->set('userInfo', ClassRegistry::init('User')->find('first', array('conditions' => array('User.id' => $this->Authsome->get('id')))));
-               //$this->set('userInfo', $userdata);
-               }
+          	  $this->layout = 'blank';
+          	  $this->set('recentEssays', ClassRegistry::init('Essay')->getRecent());
+          	  $this->set('recentRevisions', ClassRegistry::init('Revision')->getRecent());
+          	  $this->set('userInfo', ClassRegistry::init('User')->find('first', array('conditions' => array('User.id' => $this->Authsome->get('id')))));
+          	  //Pagination code here: have to implement in view
+          	  $this->paginate = array(
+          	  	  'Essay' => array('limit' => 6, 
+                           'order' => array('revision_count' => 'asc'))
+                          );
+                $this->set('essays', $this->paginate());
+                $this->paginate = array(
+          	  	  'Revision' => array('limit' => 6)
+                          );
+                $this->set('revisions', $this->paginate());    
+          }
     }
 ?>

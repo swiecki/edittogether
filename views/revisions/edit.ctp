@@ -4,6 +4,7 @@
 		<legend><?php __('Edit Revision'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
+		echo $this->Form->input('rating');
 		echo $this->Form->input('user_id');
 		echo $this->Form->input('essay_id');
 		echo $this->Form->input('title');
@@ -22,5 +23,7 @@
 		<li><?php echo $this->Html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Essays', true), array('controller' => 'essays', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Essay', true), array('controller' => 'essays', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Revisionreviews', true), array('controller' => 'revisionreviews', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Revisionreview', true), array('controller' => 'revisionreviews', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

@@ -7,7 +7,6 @@
 			<th><?php echo $this->Paginator->sort('description');?></th>
 			<th><?php echo $this->Paginator->sort('content');?></th>
 			<th><?php echo $this->Paginator->sort('user_id');?></th>
-			<th><?php echo $this->Paginator->sort('revision_count');?></th>
 			<th class="actions"><?php __('Actions');?></th>
 	</tr>
 	<?php
@@ -26,7 +25,6 @@
 		<td>
 			<?php echo $this->Html->link($essay['User']['id'], array('controller' => 'users', 'action' => 'view', $essay['User']['id'])); ?>
 		</td>
-		<td><?php echo $essay['Essay']['revision_count']; ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $essay['Essay']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $essay['Essay']['id'])); ?>
@@ -53,6 +51,8 @@
 	<h3><?php __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Essay', true), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Revisions', true), array('controller' => 'revisions', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Revision', true), array('controller' => 'revisions', 'action' => 'add')); ?> </li>
 	</ul>

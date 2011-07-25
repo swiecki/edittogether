@@ -84,7 +84,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Revisionreview', true), array('controller' => 'revisionreviews', 'action' => 'add', $revision['Revision']['id']));?> </li>
+			<li><?php echo $this->Html->link(__('New Revisionreview', true), array('controller' => 'revisionreviews', 'action' => 'add', 'revision_id' => $revision['Revision']['id']));?> </li>
 		</ul>
 	</div>
 </div>

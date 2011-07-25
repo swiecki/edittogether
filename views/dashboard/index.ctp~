@@ -44,7 +44,6 @@ function myTruncate2($string, $limit, $break=" ", $pad="...")
 </div>
 </header>
 <div class="clear"></div>
-<?php echo $this->Session->flash(); ?>
 <section id="upperpanels">
 <div id="youressays" class="grid_9">
 	<h2><?php echo $this->Html->link(__('_Your Essays', true), array('controller' => 'essays', 'action' => 'index')); ?></h2>

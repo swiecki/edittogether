@@ -21,22 +21,6 @@ class Revision extends AppModel {
 			'counterCache' => true
 		)
 	);
-	
-	var $hasMany = array(
-		'Revisionreview' => array(
-			'className' => 'Revisionreview',
-			'foreignKey' => 'revision_id',
-			'dependent' => true,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
-	);
 
    function getRecent() {
       return $this->find('all');

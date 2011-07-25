@@ -1,0 +1,68 @@
+<?php
+class RevisionreviewsController extends AppController {
+
+	var $name = 'Revisionreviews';
+
+	function index() {
+		$this->Revisionreview->recursive = 0;
+		$this->set('revisionreviews', $this->paginate());
+	}
+
+	function view($id = null) {
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid revisionreview', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->set('revisionreview', $this->Revisionreview->read(null, $id));
+	}
+
+	function add() {
+		if (!empty($this->data)) {
+			$this->Revisionreview->create();
+			if ($this->Revisionreview->save($this->data)) {
+				$this->Session->setFlash(__('The revisionreview has been saved', true));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The revisionreview could not be saved. Please, try again.', true));
+			}
+		}
+		$users = $this->Revisionreview->User->find('list');
+		$revisions = $this->Revisionreview->Revision->find('list');
+		$this->set(compact('users', 'revisions'));
+	}
+
+	function edit($id = null) {
+		if (!$id && empty($this->data)) {
+			$this->Session->setFlash(__('Invalid revisionreview', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		if (!empty($this->data)) {
+			if ($this->Revisionreview->save($this->data)) {
+				$this->Session->setFlash(__('The revisionreview has been saved', true));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The revisionreview could not be saved. Please, try again.', true));
+			}
+		}
+		if (empty($this->data)) {
+			$this->data = $this->Revisionreview->read(null, $id);
+		}
+		$users = $this->Revisionreview->User->find('list');
+		$revisions = $this->Revisionreview->Revision->find('list');
+		$this->set(compact('users', 'revisions'));
+	}
+
+	function delete($id = null) {
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid id for revisionreview', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		if ($this->Revisionreview->delete($id)) {
+			$this->Session->setFlash(__('Revisionreview deleted', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		$this->Session->setFlash(__('Revisionreview was not deleted', true));
+		$this->redirect(array('action' => 'index'));
+	}
+}
+?>

@@ -3,6 +3,7 @@
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id');?></th>
+			<th><?php echo $this->Paginator->sort('rating');?></th>
 			<th><?php echo $this->Paginator->sort('user_id');?></th>
 			<th><?php echo $this->Paginator->sort('essay_id');?></th>
 			<th><?php echo $this->Paginator->sort('title');?></th>
@@ -19,6 +20,7 @@
 	?>
 	<tr<?php echo $class;?>>
 		<td><?php echo $revision['Revision']['id']; ?>&nbsp;</td>
+		<td><?php echo $revision['Revision']['rating']; ?>&nbsp;</td>
 		<td>
 			<?php echo $this->Html->link($revision['User']['id'], array('controller' => 'users', 'action' => 'view', $revision['User']['id'])); ?>
 		</td>
@@ -57,5 +59,7 @@
 		<li><?php echo $this->Html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Essays', true), array('controller' => 'essays', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Essay', true), array('controller' => 'essays', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Revisionreviews', true), array('controller' => 'revisionreviews', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Revisionreview', true), array('controller' => 'revisionreviews', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
