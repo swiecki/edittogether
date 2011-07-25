@@ -20,6 +20,10 @@ class RevisionsController extends AppController {
 		$userstuff = $this->Revision->User->find('first', array('conditions' => array('User.id' => $this->Authsome->get('id'))));
 		if (!empty($this->data)) {
 			$this->Revision->create();
+			/*
+			Edits the $this-data array to automatically fix in the user id
+			*/
+			$this->data['Revision']['user_id'] = $userstuff['User']['id'];
 			$userUpdate['User']['points'] = $userstuff['User']['points'] + 2;
 			$userUpdate['User']['id'] = $userstuff['User']['id'];
 			if ($this->Revision->save($this->data)) {

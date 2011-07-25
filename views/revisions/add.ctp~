@@ -3,11 +3,9 @@
 	<fieldset>
 		<legend><?php __('Add Revision'); ?></legend>
 	<?php
-		if (isset($this->params['named']['essay_id'])) {
-    echo $form->input('essay_id', array('type' => 'hidden', 'value' => $this->params['named']['essay_id']));
-} else {
-    echo $form->input('essay_id');
-}
+		echo $this->Form->input('rating');
+		echo $this->Form->input('user_id');
+		echo $this->Form->input('essay_id');
 		echo $this->Form->input('title');
 		echo $this->Form->input('content');
 	?>
