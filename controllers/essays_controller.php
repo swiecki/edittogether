@@ -17,7 +17,7 @@ class EssaysController extends AppController {
 	}
 
 	function add() {
-		$userstuff = $this->Essay->User->find('first', array('conditions' => array('User.id' => $this->Authsome->get('id'))));		
+				
 			if (!empty($this->data)) {
 				if($userstuff['User']['points'] > 5){//checks to see if user has more than 5 points
 					$this->Essay->create();
@@ -25,9 +25,6 @@ class EssaysController extends AppController {
 					Not sure if this is the best thing to do- constructs an array manually
 					and saves it to the user model after the essay save is successful
 					*/
-					
-					$userUpdate['User']['points'] = $userstuff['User']['points'] - 5;
-					$userUpdate['User']['id'] = $userstuff['User']['id'];
 					if ($this->Essay->save($this->data)) {
 						$this->Essay->User->save($userUpdate);
 						$this->Session->setFlash(__('The essay has been saved', true));
