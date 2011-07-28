@@ -21,8 +21,12 @@ class EssaysController extends AppController {
 			if (!empty($this->data)) {
 				if($userStuff['User']['points'] >= 5){//checks to see if user has more than 5 points
 					$this->Essay->create();
+					$this->data['Essay']['word_count'] = str_word_count($this->data['Essay']['content'], 0);
 					$this->data['Essay']['user_id'] = $userStuff['User']['id'];
 					if ($this->Essay->save($this->data)) {
+						$userUpdate['User']['points'] = $userStuff['User']['points'] - 5;
+						$userUpdate['User']['id'] = $userStuff['User']['id'];  
+						$this->User->save($userUpdate);
 						$this->Session->setFlash(__('The essay has been saved', true));
 						$this->redirect(array('action' => 'index'));
 					} else {
@@ -37,8 +41,8 @@ class EssaysController extends AppController {
 	}
 	function browse() {
 		$this->paginate = array(
-	'Essay' => array('limit' => 25, 
-                           'order' => array('revision_count' => 'asc'))
+			'Essay' => array('limit' => 25, 
+                        'order' => array('revision_count' => 'asc'))
                           );
                 $this->set('essays', $this->paginate());
 	}
@@ -48,6 +52,7 @@ class EssaysController extends AppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
+			$this->data['Essay']['word_count'] = str_word_count($this->data['Essay']['content'], 0);
 			if ($this->Essay->save($this->data)) {
 				$this->Session->setFlash(__('The essay has been saved', true));
 				$this->redirect(array('action' => 'index'));

@@ -33,13 +33,5 @@ class Essay extends AppModel {
    function getRecent() {
       return $this->find('all');
    }
-   function afterSave($created) {
-   	   if($created == true){
-   	   	   $userStuff = $this->User->find('first', array('conditions' => array('User.id' => Authsome::get('id'))));
-   	   	   $userUpdate['User']['points'] = $userStuff['User']['points'] - 5;
-		   $userUpdate['User']['id'] = $userStuff['User']['id'];  
-		   $this->User->save($userUpdate);
-   	   }
-   }
 }
 ?>
